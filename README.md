@@ -1,202 +1,151 @@
-# @intellileads/auth-service
+# IntelliLeads Auth Service
 
-Authentication service for IntelliLeads microservices architecture.
+Servicio de autenticación para la plataforma IntelliLeads. Maneja el registro de usuarios, login, gestión de tokens JWT y control de acceso basado en roles.
 
-## 🚀 Overview
+## Tecnologías
 
-This service handles all authentication and authorization for the IntelliLeads platform, including user registration, login, JWT token management, and role-based access control.
+- **Node.js** con TypeScript
+- **Fastify** como framework web
+- **PostgreSQL** con Prisma ORM
+- **Redis** para caché y sesiones
+- **JWT** para autenticación
+- **Jest** para testing
 
-## 📦 Installation
+## Instalación
 
 ```bash
 npm install
 ```
 
-## 🔧 Development
+## Configuración
 
-```bash
-# Install dependencies
-npm install
+Crea un archivo `.env` en la raíz del proyecto:
 
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
-
-# Run tests
-npm test
-
-# Run tests with coverage
-npm run test:coverage
-
-# Lint code
-npm run lint
-
-# Fix linting issues
-npm run lint:fix
-```
-
-## 🏗️ Architecture
-
-```
-intellileads-auth-service/
-├── src/
-│   ├── controllers/     # Request handlers
-│   ├── services/        # Business logic
-│   ├── middleware/      # JWT, validation, etc.
-│   ├── models/          # Data models
-│   ├── routes/          # API routes
-│   ├── utils/           # Utility functions
-│   ├── config/          # Configuration
-│   └── app.ts           # Main application
-├── tests/
-│   ├── unit/            # Unit tests
-│   └── integration/     # Integration tests
-├── prisma/
-│   └── schema.prisma    # Database schema
-└── docs/                # Documentation
-```
-
-## 📋 Features
-
-- **User Registration & Login**: Secure user authentication
-- **JWT Token Management**: Access and refresh tokens
-- **Role-Based Access Control**: User roles and permissions
-- **Password Security**: Bcrypt hashing and validation
-- **Rate Limiting**: API protection against abuse
-- **CORS Support**: Cross-origin resource sharing
-- **Input Validation**: Zod schema validation
-- **Logging**: Winston structured logging
-- **Database**: PostgreSQL with Prisma ORM
-- **Caching**: Redis for session management
-
-## 🔧 Usage
-
-### Environment Variables
-
-Copy `.env.example` to `.env` and configure:
-
-```bash
+```env
 # Server
 NODE_ENV=development
 PORT=3001
-HOST=0.0.0.0
+
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/intellileads_auth"
 
 # JWT
-JWT_SECRET=your-super-secret-jwt-key
+JWT_SECRET=tu-clave-secreta-super-segura
 JWT_EXPIRES_IN=24h
 JWT_REFRESH_EXPIRES_IN=7d
 
-# Database
-DATABASE_URL="postgresql://user:pass@localhost:5432/intellileads_auth"
-
-# Redis
+# Redis (opcional)
 REDIS_URL=redis://localhost:6379
 ```
 
-### API Endpoints
-
-#### Authentication
-- `POST /auth/register` - Register new user
-- `POST /auth/login` - User login
-- `POST /auth/refresh` - Refresh access token
-- `POST /auth/logout` - User logout
-- `GET /auth/me` - Get current user info
-
-#### Users
-- `GET /users` - List users (admin only)
-- `GET /users/:id` - Get user by ID
-- `PUT /users/:id` - Update user
-- `DELETE /users/:id` - Delete user (admin only)
-
-## 🧪 Testing
+## Desarrollo
 
 ```bash
-# Run all tests
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Ejecutar tests
 npm test
 
-# Run tests in watch mode
+# Lint y fix
+npm run lint
+npm run lint:fix
+```
+
+## Base de Datos
+
+```bash
+# Configurar base de datos
+npm run db:setup
+
+# Ejecutar migraciones
+npm run prisma:migrate
+
+# Generar cliente Prisma
+npm run prisma:generate
+
+# Abrir Prisma Studio
+npm run prisma:studio
+```
+
+## Estructura del Proyecto
+
+```
+src/
+├── config/          # Configuraciones
+├── controllers/     # Controladores de rutas
+├── middleware/      # Middlewares (JWT, validación)
+├── models/          # Modelos de datos
+├── routes/          # Definición de rutas
+├── services/        # Lógica de negocio
+├── utils/           # Utilidades
+└── scripts/         # Scripts de utilidad
+```
+
+## API Endpoints
+
+### Autenticación
+- `POST /auth/register` - Registrar usuario
+- `POST /auth/login` - Login de usuario
+- `POST /auth/refresh` - Renovar token
+- `POST /auth/logout` - Logout
+- `GET /auth/me` - Obtener usuario actual
+
+### Usuarios
+- `GET /users` - Listar usuarios (solo admin)
+- `GET /users/:id` - Obtener usuario por ID
+- `PUT /users/:id` - Actualizar usuario
+- `DELETE /users/:id` - Eliminar usuario (solo admin)
+
+## Modelos de Datos
+
+### Usuario
+- `id`: Identificador único
+- `email`: Email del usuario
+- `name`: Nombre completo
+- `password`: Contraseña hasheada
+- `role`: Rol del usuario (SUPER_ADMIN, ADMIN, MANAGER, SALES_REP, VIEWER)
+- `organizationId`: ID de la organización
+- `industry`: Industria (SAAS, CONSULTING, RETAIL, etc.)
+- `isActive`: Estado activo/inactivo
+
+### Organización
+- `id`: Identificador único
+- `name`: Nombre de la organización
+- `domain`: Dominio (opcional)
+- `industry`: Industria
+- `plan`: Plan de suscripción (FREE, PRO, ENTERPRISE)
+- `settings`: Configuraciones en JSON
+
+## Docker
+
+```bash
+# Construir imagen
+npm run docker:build
+
+# Ejecutar contenedor
+npm run docker:run
+```
+
+## Testing
+
+```bash
+# Ejecutar todos los tests
+npm test
+
+# Tests en modo watch
 npm run test:watch
 
-# Run tests with coverage
+# Tests con coverage
 npm run test:coverage
-
-# Run specific test file
-npm test -- --testNamePattern="UserService"
 ```
 
-## 📚 API Reference
+## Scripts Disponibles
 
-### Register User
-```http
-POST /auth/register
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "securepassword123",
-  "name": "John Doe",
-  "organizationId": "org-123"
-}
-```
-
-### Login
-```http
-POST /auth/login
-Content-Type: application/json
-
-{
-  "email": "user@example.com",
-  "password": "securepassword123"
-}
-```
-
-### Response Format
-```json
-{
-  "success": true,
-  "data": {
-    "user": {
-      "id": "user-123",
-      "email": "user@example.com",
-      "name": "John Doe",
-      "role": "SALES_REP"
-    },
-    "tokens": {
-      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
-    }
-  }
-}
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m Add some amazing feature`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🔗 Related
-
-- [IntelliLeads Shared Types](../intellileads-shared-types)
-- [IntelliLeads CRM Service](../intellileads-crm-service)
-- [IntelliLeads AI Service](../intellileads-ai-service)
-- [IntelliLeads Web App](../intellileads-web-app)
-
-## 📞 Support
-
-For support, email support@intellileads.com or join our Slack channel.
-
----
-
-Built with ❤️ by the IntelliLeads Team
+- `npm run dev` - Servidor de desarrollo
+- `npm run build` - Compilar TypeScript
+- `npm start` - Servidor de producción
+- `npm test` - Ejecutar tests
+- `npm run lint` - Verificar código
+- `npm run db:setup` - Configurar base de datos
+- `npm run prisma:studio` - Abrir Prisma Studio
