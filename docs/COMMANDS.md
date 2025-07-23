@@ -1,106 +1,106 @@
-# 🚀 Comandos de IntelliLeads Auth Service
+# 🚀 IntelliLeads Auth Service Commands
 
-## 📦 Comandos de Desarrollo
+## 📦 Development Commands
 
-### Build y Compilación
+### Build and Compilation
 ```bash
-npm run build          # Compilar TypeScript a JavaScript
-npm run dev            # Servidor de desarrollo con hot reload
-npm run start          # Iniciar servidor de producción
-npm run clean          # Limpiar directorio dist/
+npm run build          # Compile TypeScript to JavaScript
+npm run dev            # Development server with hot reload
+npm run start          # Start production server
+npm run clean          # Clean dist/ directory
 ```
 
 ### Testing
 ```bash
-npm test               # Ejecutar todos los tests
-npm run test:watch     # Tests en modo watch
-npm run test:coverage  # Tests con reporte de cobertura
+npm test               # Run all tests
+npm run test:watch     # Tests in watch mode
+npm run test:coverage  # Tests with coverage report
 ```
 
 ### Linting
 ```bash
-npm run lint           # Verificar código con ESLint
-npm run lint:fix       # Corregir errores de ESLint automáticamente
+npm run lint           # Check code with ESLint
+npm run lint:fix       # Fix ESLint errors automatically
 ```
 
-## 🗄️ Comandos de Base de Datos
+## 🗄️ Database Commands
 
-### Scripts de Alto Nivel (Recomendados)
+### High-Level Scripts (Recommended)
 ```bash
-npm run db:setup       # Configurar base de datos (desarrollo)
-npm run db:migrate     # Crear nueva migración
-npm run db:deploy      # Desplegar migraciones (producción)
-npm run db:reset       # Resetear base de datos
-npm run db:seed        # Poblar con datos de prueba
-npm run db:studio      # Abrir Prisma Studio (interfaz web)
+npm run db:setup       # Setup database (development)
+npm run db:migrate     # Create new migration
+npm run db:deploy      # Deploy migrations (production)
+npm run db:reset       # Reset database
+npm run db:seed        # Populate with test data
+npm run db:studio      # Open Prisma Studio (web interface)
 ```
 
-### Comandos Prisma Directos
+### Direct Prisma Commands
 ```bash
-npm run prisma:generate  # Generar cliente Prisma
-npm run prisma:push      # Push schema a base de datos
-npm run prisma:migrate   # Crear migración
-npm run prisma:deploy    # Desplegar migraciones
-npm run prisma:studio    # Abrir Prisma Studio
+npm run prisma:generate  # Generate Prisma client
+npm run prisma:push      # Push schema to database
+npm run prisma:migrate   # Create migration
+npm run prisma:deploy    # Deploy migrations
+npm run prisma:studio    # Open Prisma Studio
 ```
 
-## 🐳 Comandos Docker
+## 🐳 Docker Commands
 
 ```bash
-npm run docker:build    # Construir imagen Docker
-npm run docker:run      # Ejecutar contenedor Docker
+npm run docker:build    # Build Docker image
+npm run docker:run      # Run Docker container
 ```
 
-## 📋 Flujo de Trabajo Típico
+## 📋 Typical Workflow
 
-### 1. Configuración Inicial
+### 1. Initial Setup
 ```bash
-# Instalar dependencias
+# Install dependencies
 npm install
 
-# Configurar base de datos
+# Setup database
 npm run db:setup
 
-# Poblar con datos de prueba
+# Populate with test data
 npm run db:seed
 ```
 
-### 2. Desarrollo Diario
+### 2. Daily Development
 ```bash
-# Iniciar servidor de desarrollo
+# Start development server
 npm run dev
 
-# En otra terminal, ver base de datos
+# In another terminal, view database
 npm run db:studio
 ```
 
 ### 3. Testing
 ```bash
-# Ejecutar tests
+# Run tests
 npm test
 
-# Verificar calidad de código
+# Check code quality
 npm run lint
 ```
 
-### 4. Producción
+### 4. Production
 ```bash
-# Compilar
+# Compile
 npm run build
 
-# Desplegar migraciones
+# Deploy migrations
 npm run db:deploy
 
-# Iniciar servidor
+# Start server
 npm start
 ```
 
-## 🔧 Variables de Entorno
+## 🔧 Environment Variables
 
-Copia `.env.example` a `.env` y configura:
+Copy `.env.example` to `.env` and configure:
 
 ```bash
-# Base de datos
+# Database
 DATABASE_URL="postgresql://intellileads:intellileads123@localhost:5432/intellileads_auth"
 
 # JWT
@@ -115,37 +115,37 @@ REDIS_URL=redis://localhost:6379
 ## 🐳 Docker Compose
 
 ```bash
-# Levantar servicios de base de datos
+# Start database services
 docker-compose up -d
 
-# Ver logs
+# View logs
 docker-compose logs -f
 
-# Parar servicios
+# Stop services
 docker-compose down
 ```
 
-## 📊 Acceso a Herramientas
+## 📊 Tool Access
 
 - **Prisma Studio**: http://localhost:5555 (npm run db:studio)
 - **pgAdmin**: http://localhost:8080 (admin@intellileads.co / admin123)
 - **PostgreSQL**: localhost:5432
 - **Redis**: localhost:6379
 
-## 🆘 Comandos de Emergencia
+## 🆘 Emergency Commands
 
 ```bash
-# Resetear todo
+# Reset everything
 npm run db:reset
 
-# Regenerar cliente Prisma
+# Regenerate Prisma client
 npm run prisma:generate
 
-# Limpiar y reinstalar
+# Clean and reinstall
 rm -rf node_modules package-lock.json
 npm install
 ```
 
 ---
 
-**💡 Tip**: Usa `npm run` para ver todos los comandos disponibles.
+**💡 Tip**: Use `npm run` to see all available commands.

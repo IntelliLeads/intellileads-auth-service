@@ -1,25 +1,25 @@
 # IntelliLeads Auth Service
 
-Servicio de autenticación para la plataforma IntelliLeads. Maneja el registro de usuarios, login, gestión de tokens JWT y control de acceso basado en roles.
+Authentication service for the IntelliLeads platform. Handles user registration, login, JWT token management, and role-based access control.
 
-## Tecnologías
+## Technologies
 
-- **Node.js** con TypeScript
-- **Fastify** como framework web
-- **PostgreSQL** con Prisma ORM
-- **Redis** para caché y sesiones
-- **JWT** para autenticación
-- **Jest** para testing
+- **Node.js** with TypeScript
+- **Fastify** as web framework
+- **PostgreSQL** with Prisma ORM
+- **Redis** for cache and sessions
+- **JWT** for authentication
+- **Jest** for testing
 
-## Instalación
+## Installation
 
 ```bash
 npm install
 ```
 
-## Configuración
+## Configuration
 
-Crea un archivo `.env` en la raíz del proyecto:
+Create a `.env` file in the project root:
 
 ```env
 # Server
@@ -30,122 +30,122 @@ PORT=3001
 DATABASE_URL="postgresql://user:password@localhost:5432/intellileads_auth"
 
 # JWT
-JWT_SECRET=tu-clave-secreta-super-segura
+JWT_SECRET=your-super-secret-jwt-key
 JWT_EXPIRES_IN=24h
 JWT_REFRESH_EXPIRES_IN=7d
 
-# Redis (opcional)
+# Redis (optional)
 REDIS_URL=redis://localhost:6379
 ```
 
-## Desarrollo
+## Development
 
 ```bash
-# Iniciar servidor de desarrollo
+# Start development server
 npm run dev
 
-# Ejecutar tests
+# Run tests
 npm test
 
-# Lint y fix
+# Lint and fix
 npm run lint
 npm run lint:fix
 ```
 
-## Base de Datos
+## Database
 
 ```bash
-# Configurar base de datos
+# Setup database
 npm run db:setup
 
-# Ejecutar migraciones
+# Run migrations
 npm run prisma:migrate
 
-# Generar cliente Prisma
+# Generate Prisma client
 npm run prisma:generate
 
-# Abrir Prisma Studio
+# Open Prisma Studio
 npm run prisma:studio
 ```
 
-## Estructura del Proyecto
+## Project Structure
 
 ```
 src/
-├── config/          # Configuraciones
-├── controllers/     # Controladores de rutas
-├── middleware/      # Middlewares (JWT, validación)
-├── models/          # Modelos de datos
-├── routes/          # Definición de rutas
-├── services/        # Lógica de negocio
-├── utils/           # Utilidades
-└── scripts/         # Scripts de utilidad
+├── config/          # Configurations
+├── controllers/     # Route controllers
+├── middleware/      # Middlewares (JWT, validation)
+├── models/          # Data models
+├── routes/          # Route definitions
+├── services/        # Business logic
+├── utils/           # Utilities
+└── scripts/         # Utility scripts
 ```
 
 ## API Endpoints
 
-### Autenticación
-- `POST /auth/register` - Registrar usuario
-- `POST /auth/login` - Login de usuario
-- `POST /auth/refresh` - Renovar token
+### Authentication
+- `POST /auth/register` - Register user
+- `POST /auth/login` - User login
+- `POST /auth/refresh` - Refresh token
 - `POST /auth/logout` - Logout
-- `GET /auth/me` - Obtener usuario actual
+- `GET /auth/me` - Get current user
 
-### Usuarios
-- `GET /users` - Listar usuarios (solo admin)
-- `GET /users/:id` - Obtener usuario por ID
-- `PUT /users/:id` - Actualizar usuario
-- `DELETE /users/:id` - Eliminar usuario (solo admin)
+### Users
+- `GET /users` - List users (admin only)
+- `GET /users/:id` - Get user by ID
+- `PUT /users/:id` - Update user
+- `DELETE /users/:id` - Delete user (admin only)
 
-## Modelos de Datos
+## Data Models
 
-### Usuario
-- `id`: Identificador único
-- `email`: Email del usuario
-- `name`: Nombre completo
-- `password`: Contraseña hasheada
-- `role`: Rol del usuario (SUPER_ADMIN, ADMIN, MANAGER, SALES_REP, VIEWER)
-- `organizationId`: ID de la organización
-- `industry`: Industria (SAAS, CONSULTING, RETAIL, etc.)
-- `isActive`: Estado activo/inactivo
+### User
+- `id`: Unique identifier
+- `email`: User email
+- `name`: Full name
+- `password`: Hashed password
+- `role`: User role (SUPER_ADMIN, ADMIN, MANAGER, SALES_REP, VIEWER)
+- `organizationId`: Organization ID
+- `industry`: Industry (SAAS, CONSULTING, RETAIL, etc.)
+- `isActive`: Active/inactive status
 
-### Organización
-- `id`: Identificador único
-- `name`: Nombre de la organización
-- `domain`: Dominio (opcional)
-- `industry`: Industria
-- `plan`: Plan de suscripción (FREE, PRO, ENTERPRISE)
-- `settings`: Configuraciones en JSON
+### Organization
+- `id`: Unique identifier
+- `name`: Organization name
+- `domain`: Domain (optional)
+- `industry`: Industry
+- `plan`: Subscription plan (FREE, PRO, ENTERPRISE)
+- `settings`: Settings in JSON
 
 ## Docker
 
 ```bash
-# Construir imagen
+# Build image
 npm run docker:build
 
-# Ejecutar contenedor
+# Run container
 npm run docker:run
 ```
 
 ## Testing
 
 ```bash
-# Ejecutar todos los tests
+# Run all tests
 npm test
 
-# Tests en modo watch
+# Tests in watch mode
 npm run test:watch
 
-# Tests con coverage
+# Tests with coverage
 npm run test:coverage
 ```
 
-## Scripts Disponibles
+## Available Scripts
 
-- `npm run dev` - Servidor de desarrollo
-- `npm run build` - Compilar TypeScript
-- `npm start` - Servidor de producción
-- `npm test` - Ejecutar tests
-- `npm run lint` - Verificar código
-- `npm run db:setup` - Configurar base de datos
-- `npm run prisma:studio` - Abrir Prisma Studio
+- `npm run dev` - Development server
+- `npm run build` - Compile TypeScript
+- `npm start` - Production server
+- `npm test` - Run tests
+- `npm run lint` - Check code
+- `npm run db:setup` - Setup database
+- `npm run prisma:studio` - Open Prisma Studio
