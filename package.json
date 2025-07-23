@@ -1,0 +1,84 @@
+{
+  "name": "@intellileads/auth-service",
+  "version": "1.0.0",
+  "description": "Authentication service for IntelliLeads microservices",
+  "main": "dist/app.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
+    "start": "node dist/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "clean": "rm -rf dist",
+    "docker:build": "docker build -t intellileads-auth-service .",
+    "docker:run": "docker run -p 3001:3001 intellileads-auth-service",
+    "db:setup": "./scripts/db.sh setup",
+    "db:migrate": "./scripts/db.sh migrate",
+    "db:deploy": "./scripts/db.sh deploy",
+    "db:reset": "./scripts/db.sh reset",
+    "db:seed": "./scripts/db.sh seed",
+    "db:studio": "./scripts/db.sh studio",
+    "prisma:generate": "prisma generate",
+    "prisma:push": "prisma db push",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy",
+    "prisma:studio": "prisma studio"
+  },
+  "keywords": [
+    "intellileads",
+    "auth",
+    "authentication",
+    "jwt",
+    "microservice",
+    "crm"
+  ],
+  "author": "IntelliLeads Team",
+  "license": "MIT",
+  "dependencies": {
+    "@intellileads/shared-types": "file:../intellileads-shared-types",
+    "fastify": "^4.24.0",
+    "@fastify/cors": "^8.4.0",
+    "@fastify/helmet": "^11.1.0",
+    "@fastify/rate-limit": "^8.0.0",
+    "@fastify/jwt": "^7.2.4",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "prisma": "^5.0.0",
+    "@prisma/client": "^5.0.0",
+    "redis": "^4.6.0",
+    "winston": "^3.10.0",
+    "dotenv": "^16.3.0",
+    "zod": "^3.22.0",
+    "fastify-plugin": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/bcryptjs": "^2.4.0",
+    "@types/jsonwebtoken": "^9.0.0",
+    "@types/jest": "^29.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.0",
+    "supertest": "^6.3.0",
+    "@types/supertest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IntelliLeads/intellileads-auth-service.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IntelliLeads/intellileads-auth-service/issues"
+  },
+  "homepage": "https://github.com/IntelliLeads/intellileads-auth-service#readme"
+}
