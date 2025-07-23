@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: intellileads-auth-postgres
+    environment:
+      POSTGRES_DB: intellileads_auth
+      POSTGRES_USER: intellileads
+      POSTGRES_PASSWORD: intellileads123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    networks:
+      - intellileads-network
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: intellileads-auth-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - intellileads-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: intellileads-auth-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@intellileads.co
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - intellileads-network
+    restart: unless-stopped
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+  redis_data:
+  pgadmin_data:
+
+networks:
+  intellileads-network:
+    driver: bridge
